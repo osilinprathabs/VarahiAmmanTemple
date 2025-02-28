@@ -44,11 +44,8 @@ const ContactPage = ({ id }) => {
         <div className="flex flex-col align-center justify-center map-div leading-9">
           <h1 className="font-bold text-2xl text-red-900 underline">முகவரி:</h1>
           <h1 className="font-bold text-xl text-red-900 leading-9">
-        
-
-          ஸ்ரீ ஆதி வராகி அம்மன் அருட்பணி அறக்கட்டளை | ஆதி வராகி அம்மன் பரிகார ஆலயம் | ஸ்ரீ நவகிரக திருக்கோயில்கள் | நவ வராகி திருக்கோயில்கள் | இந்தியா | தமிழ்நாடு | திருச்சி | பதிவு எண்: 118/2022 | தொடர்பு எண்: 90925 26272 | <br />
+            ஸ்ரீ ஆதி வராகி அம்மன் அருட்பணி அறக்கட்டளை | ஆதி வராகி அம்மன் பரிகார ஆலயம் | ஸ்ரீ நவகிரக திருக்கோயில்கள் | நவ வராகி திருக்கோயில்கள் | இந்தியா | தமிழ்நாடு | திருச்சி | பதிவு எண்: 118/2022 | தொடர்பு எண்: 90925 26272 | <br />
             தமிழ்நாடு 620001
-
           </h1>
           <br />
           <h1 className="font-bold text-2xl text-red-900 underline">கூகிள் வரைபடத்தில் இடத்தைப் பார்க்கவும்:</h1>
@@ -62,16 +59,33 @@ const ContactPage = ({ id }) => {
             marginWidth="0"
             id="gmap_canvas"
             src="https://maps.google.com/maps?q=SHRI%20AADHI%20VARAHI%20AMMAN%20PARIGARA%20TEMPLE,%20101,%20Shanmuga%20Nagar,%20Uyyakondan%20Thirumalai,%20Sholanganallur,%20Tamil%20Nadu%20620102&output=embed" 
-            ></iframe>
+          ></iframe>
         </div>
       </div>
       <div className="right bg-orange-100 h-full w-full px-50 py-50">
         <section className="px-50 py-50">
           <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
-            <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-red-900">
+            <h2 className="mb-4 text-4xl w-3/4 tracking-tight font-extrabold text-center text-red-900">
               தொடர்பு கொள்ளவும்
             </h2>
+             <br></br>
             <form ref={form} onSubmit={sendEmail} className="space-y-8">
+              {/* Name Field */}
+              <div>
+                <label htmlFor="name" className="block mb-2 text-sm font-medium text-red-900">
+                  உங்கள் பெயர்
+                </label>
+                <input
+                  name="name"
+                  type="text"
+                  id="name"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-3/4 p-2.5"
+                  placeholder="உங்கள் பெயர்"
+                  required
+                />
+              </div>
+
+              {/* Email Field */}
               <div>
                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-red-900">
                   உங்கள் மின்னஞ்சல் ஐடி
@@ -80,24 +94,59 @@ const ContactPage = ({ id }) => {
                   name="email"
                   type="email"
                   id="email"
-                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-3/4 p-2.5"
                   placeholder="name@gmail.com"
                   required
                 />
               </div>
+
+              {/* Phone Field */}
               <div>
                 <label htmlFor="phone number" className="block mb-2 text-sm font-medium text-red-900">
                   தொலைபேசி எண்
                 </label>
                 <input
-                  name="subject"
+                  name="phone"
                   type="text"
-                  id="subject"
-                  className="block p-3 w-full text-sm rounded-lg border border-gray-300 shadow-sm"
+                  id="phone"
+                  className="block p-3 w-3/4 text-sm rounded-lg border border-gray-300 shadow-sm"
                   placeholder="எப்படிக்கு உதவ முடியும் என்பதை எங்களுக்கு தெரியப்படுத்தவும்"
                   required
                 />
               </div>
+
+              {/* Address Field */}
+              <div>
+                <label htmlFor="address" className="block mb-2 text-sm font-medium text-red-900">
+                  முகவரி
+                </label>
+                <input
+                  name="address"
+                  type="text"
+                  id="address"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-3/4 p-2.5"
+                  placeholder="உங்கள் வீட்டு முகவரி"
+                  required
+                />
+              </div>
+
+              {/* Government ID Field */}
+              <div>
+                <label htmlFor="govId" className="block mb-2 text-sm font-medium text-red-900">
+                 அரசு ஐடி ஆதாரம் / ஏதேனும் ஐடி ஆதாரம்
+                </label>
+                <input
+                  name="govId"
+                  type="text"
+                  id="govId"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-3/4 p-2.5"
+                  placeholder="ஆதார் எண் / பான் எண்
+"
+                  required
+                />
+              </div>
+
+              {/* Message Field */}
               <div className="sm:col-span-2">
                 <label htmlFor="message" className="block mb-2 text-sm font-medium text-red-900">
                   உரை/சூழல்கள்
@@ -106,10 +155,11 @@ const ContactPage = ({ id }) => {
                   name="msg"
                   id="message"
                   rows="6"
-                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300"
+                  className="block p-2.5 w-3/4 text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300"
                   placeholder="கருத்தை விடுங்கள்..."
                 ></textarea>
               </div>
+
               <button
                 type="submit"
                 className="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-red-900 hover:bg-primary-800"

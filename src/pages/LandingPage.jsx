@@ -139,7 +139,7 @@ const LandingPage = () => {
 
       {/* Devi Pic */}
       <div
-      className="absolute md:bottom-[-8px] md:left-[36.5%] md:h-[380px] md:w-[380px] z-10 animate-slideInUp
+      className="absolute md:bottom-[-8px] md:left-[36.8%] md:h-[380px] md:w-[380px] z-10 animate-slideInUp
         xs:h-[220px] xs:w-[220px] xs:bottom-8 xs:left-[20%]
       "
       style={{

@@ -25,7 +25,7 @@ import p12 from './12.jpg'
 import p13 from './13.jpg'
 import p14 from './14.jpg'
 // import p15 from './p15.jpg'
-import p16 from './p16.jpg'
+// import p16 from './p16.jpg'
 
 const images = [
   {
