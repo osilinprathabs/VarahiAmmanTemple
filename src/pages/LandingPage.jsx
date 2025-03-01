@@ -128,7 +128,7 @@ const LandingPage = () => {
       {/* Middle Chakra */}
       <div
         className="absolute middle_chakra chakra animate-spin-slow
-        md:bottom-[250px] md:left-[43%] md:h-48 md:w-48
+        md:bottom-[250px] md:left-[46%] md:h-48 md:w-48
         xs:h-36 xs:w-36 xs:bottom-[200px] xs:left-[32%]
         "
         style={{
@@ -139,7 +139,7 @@ const LandingPage = () => {
 
       {/* Devi Pic */}
       <div
-      className="absolute md:bottom-[-8px] md:left-[36.8%] md:h-[380px] md:w-[380px] z-10 animate-slideInUp
+      className="absolute md:bottom-[-8px] md:left-[41.8%] md:h-[380px] md:w-[380px] z-10 animate-slideInUp
         xs:h-[220px] xs:w-[220px] xs:bottom-8 xs:left-[20%]
       "
       style={{
