@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import logo from "../images/deviPic.jpg";
+import logo from "../images/logoamman.png";
 
 const Header = () => {
   const [activeIndex, setActiveIndex] = useState(null);

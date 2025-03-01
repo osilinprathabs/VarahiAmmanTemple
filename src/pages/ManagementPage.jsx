@@ -45,18 +45,19 @@ const TeamMember = ({ name, role, description, image }) => {
 const ManagementPage = ({ id }) => {
   const teamMembers = [
     {
-      name: "தேஜப்பா பாச்கேரே",
-      role: "தொருவி தலைவர் / தர்மதரிசிகள்",
+      name: "சிவகுரு என்கிற சிவா பாலசுப்ரமணியன்.",
+      role: "நிறுவனர் மற்றும் நிர்வாக அறங்காவலர்",
+      image: mainOwner
+    },
+ 
+    {
+      name: "அமுதா பெ",
+      role: "அறங்காவலர் ",
       image: mainOwner
     },
     {
-      name: "ஸ்ரீ ஸ்ரீ மோஹனதாஸ் பரமஹம்ஸ் ஸ்வாமீஜி",
-      role: "ஸ்ரீதாம் மணில ஸ்வாமீஜி",
-      image: mainOwner
-    },
-    {
-      name: "ஸ்ரீ சிவபிரசாத் ஐதாலர்",
-      role: "க்ஷேத்ரத்தின் பிரதான தந்திரிகள்",
+      name: "மாரிமுத்து அ",
+      role: "அறங்காவலர் ",
       image: mainOwner
     },
  
