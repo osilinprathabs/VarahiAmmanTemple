@@ -3,36 +3,101 @@ import emailjs from "@emailjs/browser";
 import { useState, useRef } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
 
-const ContactPage = ({ id }) => {
-  const form = useRef();
-  const [loader, setloader] = useState(false);
 
-  const sendEmail = (e) => {
-    e.preventDefault();
-    setloader(true);
+  const ContactPage = ({ id }) => {
+    const form = useRef();
+    const [from_name, setName] = useState('');
+    const [from_email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [address, setAddress] = useState('');
+    const [gov_id, setGovID] = useState('');  
+    const [message, setMessage] = useState('');
+    const [loader, setLoader] = useState(false);
+  
+    const sendEmail = (e) => {
+      e.preventDefault();
+      setLoader(true);
+  
+      emailjs
+        .sendForm(
+          "service_1urcmlu",  //op service ID API downward   
+          "template_tgrnjgk",
+          e.target,
+          "TfeTbv8r3Qf4h3hqv"  //Private Key OP
+        )
 
-    emailjs
-      .sendForm(
-        "service_jjpb6tq",
-        "template_eaw52ht",
-        form.current,
-        "vwSrJ918OllPQ-NVX"
-      )
-      .then(
-        (result) => {
-          setloader(false);
-          console.log(result.text);
-          toast.success("Email sent successfully");
-          form.current.reset();
-        },
-        (error) => {
-          setloader(false);
-          console.log(error.text);
-          toast.error("Failed to send email");
+        .then(
+          (result) => {
+            setLoader(false);
+            console.log(result.text);
+            toast.success("Email sent successfully");
+            form.current.reset();
+            // Reset state values
+            setName('');
+            setEmail('');
+            setPhone('');
+            setAddress('');
+            setGovID('');
+            setMessage('');
+          },
+          (error) => {
+            setLoader(false);
+            console.log(error.text);
+            toast.error("Failed to send email");
+          }
+        );
+    };
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form.current);
+      const formValues = {
+        from_name: formData.get("from_name").trim(),
+        from_email: formData.get("from_email").trim(),
+        phone: formData.get("phone").trim(),
+        address: formData.get("address").trim(),
+        gov_id: formData.get("gov_id").trim(),
+        message: formData.get("message").trim()
+      };
+  
+      // Check if any field is empty
+      if (!formValues.from_name || !formValues.from_email || !formValues.phone || 
+          !formValues.address || !formValues.gov_id || !formValues.message) {
+        toast.error("எல்லா உள்ளீடுகளையும் நிரப்பவும்");
+        return;
+      }
+  
+      try {
+        setLoader(true);
+        // Make API call to PHP backend
+        const response = await axios.post(
+          "http://localhost/varahi_amman_temple/submit",  
+          formValues,
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+  
+        if (response.data.success) {
+          // If API call is successful, then send the email
+          sendEmail(e);
+          toast.success("Form submitted successfully");
+        } else {
+          throw new Error(response.data.message || "API call failed");
         }
-      );
-  };
+      } catch (error) {
+        setLoader(false);
+        console.error("API Error:", error);
+        toast.error(error.response?.data?.message || "Failed to submit form");
+      }
+    };
+
+
 
   return (
     <div
@@ -53,10 +118,6 @@ const ContactPage = ({ id }) => {
           <iframe
             width="406"
             height="274"
-            frameBorder="0"
-            scrolling="no"
-            marginHeight="0"
-            marginWidth="0"
             id="gmap_canvas"
             src="https://maps.google.com/maps?q=SHRI%20AADHI%20VARAHI%20AMMAN%20PARIGARA%20TEMPLE,%20101,%20Shanmuga%20Nagar,%20Uyyakondan%20Thirumalai,%20Sholanganallur,%20Tamil%20Nadu%20620102&output=embed" 
           ></iframe>
@@ -76,9 +137,10 @@ const ContactPage = ({ id }) => {
                   உங்கள் பெயர்
                 </label>
                 <input
-                  name="name"
+                  name="from_name"
                   type="text"
                   id="name"
+                  value={from_name} onChange={(e)=> setName(e.target.value)}
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-3/4 p-2.5"
                   placeholder="உங்கள் பெயர்"
                   required
@@ -91,9 +153,11 @@ const ContactPage = ({ id }) => {
                   உங்கள் மின்னஞ்சல் ஐடி
                 </label>
                 <input
-                  name="email"
+                  name="from_email"
                   type="email"
-                  id="email"
+                  id="from_email"
+                  value={from_email} onChange={(e)=> setEmail(e.target.value)}
+
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-3/4 p-2.5"
                   placeholder="name@gmail.com"
                   required
@@ -109,6 +173,8 @@ const ContactPage = ({ id }) => {
                   name="phone"
                   type="text"
                   id="phone"
+                  value={phone} onChange={(e)=> setPhone(e.target.value)}
+
                   className="block p-3 w-3/4 text-sm rounded-lg border border-gray-300 shadow-sm"
                   placeholder="எப்படிக்கு உதவ முடியும் என்பதை எங்களுக்கு தெரியப்படுத்தவும்"
                   required
@@ -124,6 +190,8 @@ const ContactPage = ({ id }) => {
                   name="address"
                   type="text"
                   id="address"
+                  value={address} onChange={(e)=> setAddress(e.target.value)}
+
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-3/4 p-2.5"
                   placeholder="உங்கள் வீட்டு முகவரி"
                   required
@@ -135,10 +203,12 @@ const ContactPage = ({ id }) => {
                 <label htmlFor="govId" className="block mb-2 text-sm font-medium text-red-900">
                  அரசு ஐடி ஆதாரம் / ஏதேனும் ஐடி ஆதாரம்
                 </label>
-                <input
-                  name="govId"
+                <input 
+                  name="gov_id"
                   type="text"
-                  id="govId"
+                  id="gov_id"
+                  value={gov_id} onChange={(e)=> setGovID(e.target.value)}
+
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-3/4 p-2.5"
                   placeholder="ஆதார் எண் / பான் எண்
 "
@@ -152,8 +222,10 @@ const ContactPage = ({ id }) => {
                   உரை/சூழல்கள்
                 </label>
                 <textarea
-                  name="msg"
+                  name="message"
                   id="message"
+                  value={message} onChange={(e)=> setMessage(e.target.value)}
+
                   rows="6"
                   className="block p-2.5 w-3/4 text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300"
                   placeholder="கருத்தை விடுங்கள்..."
@@ -161,7 +233,7 @@ const ContactPage = ({ id }) => {
               </div>
 
               <button
-                type="submit"
+                type="submit"  onSubmit={handleSubmit}
                 className="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-red-900 hover:bg-primary-800"
               >
                 மின்னஞ்சல் அனுப்பவும்
